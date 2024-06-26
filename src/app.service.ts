@@ -13,7 +13,7 @@ export class AppService {
       password: 'buppy',
     },
     {
-      username: 'rand',
+      username: 'random',
       password: 'random'
     }
   ]
