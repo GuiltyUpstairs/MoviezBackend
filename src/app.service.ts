@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  //bhai teri maa ka bhosda
 
   users = [
     {
