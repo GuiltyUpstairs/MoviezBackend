@@ -12,11 +12,18 @@ export class AppController {
     return this.appService.checkUser(email, password);
   }
   @Get()
-  gethello(){
+  getHello(){
     return "Hello World";
   }
   @Post()
   authUser(@Body('username') username, @Body('password') password){
     return this.appService.checkUser(username, password);
+  }
+
+
+  @Post('signup')
+  registerNewUser(@Body() checkSignupUserDto: CheckUserDto){
+    const{email, password} = checkSignupUserDto;
+    return this.appService.registernewuser(email, password);
   }
 }

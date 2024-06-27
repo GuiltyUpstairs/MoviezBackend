@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, ConflictException, NotFoundException } from "@nestjs/common";
 import { error } from "console";
 
 @Injectable()
@@ -40,6 +40,18 @@ export class AppService {
         status: 401,
         message: "User does not exist"
       }
+    }
+  }
+  registernewuser(email: string, password: string) {
+    const existinguser = this.users.find(p => p.email === email)
+    if(existinguser) {
+      throw new ConflictException('User already exists');
+      }
+    const newuser = {email,password};
+    this.users.push(newuser);
+    return{
+       data: newuser, 
+       message: 'User registered successfully'
     }
   }
 }
