@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { error } from "console";
 
 @Injectable()
 export class AppService {
@@ -19,9 +20,9 @@ export class AppService {
   ]
 
   checkUser(email: string, password: string){
-    const currentUser = this.users.find(p => p.email = email)
+    const currentUser = this.users.find(p => p.email == email)
 
-    if(currentUser != null){
+    if(currentUser !== null){
       if(password == currentUser.password){
         //login successful
         return currentUser;
@@ -29,7 +30,7 @@ export class AppService {
       else{
         //password is wrong
         return {
-          status: 401,
+          status: 200,
           message: 'Password is wrong'
         }
       }

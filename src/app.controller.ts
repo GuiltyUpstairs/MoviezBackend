@@ -11,6 +11,10 @@ export class AppController {
     const{email, password} = checkUserDto;
     return this.appService.checkUser(email, password);
   }
+  @Get()
+  gethello(){
+    return "Hello World";
+  }
   @Post()
   authUser(@Body('username') username, @Body('password') password){
     return this.appService.checkUser(username, password);
