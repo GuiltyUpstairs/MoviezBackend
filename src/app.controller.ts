@@ -6,7 +6,7 @@ import { CheckUserDto } from "./dto/check-user.dto";
 export class AppController {
   constructor(private readonly appService: AppService) {}
   
-  @Get()
+  @Post()
   checkUser(@Body() checkUserDto: CheckUserDto){
     const{email, password} = checkUserDto;
     return this.appService.checkUser(email, password);
@@ -15,6 +15,10 @@ export class AppController {
   getHello(){
     return "Hello World";
   }
+  // @Post()
+  // authUser(@Body('username') username, @Body('password') password){
+  //   return this.appService.checkUser(username, password);
+  // }
   @Post()
   authUser(@Body('username') username, @Body('password') password){
     return this.appService.checkUser(username, password);
