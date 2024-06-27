@@ -1,45 +1,57 @@
-import { Injectable } from "@nestjs/common";
-import { error } from "console";
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
 
   users = [
     {
-      email : 'randomtest@gmail.com',
-      password: 'testrandom', //
+      email: 'randomtest@gmail.com',
+      password: 'testrandom',
     },
     {
-      email:'admintest@gmail.com',
+      email: 'admintest@gmail.com',
       password: 'testadmin',
     },
     {
       email: 'servertest@gmail.com',
-      password: 'testserver'
+      password: 'testserver',
+    },
+    {
+      email: 'test',
+      password: 'test',
     }
-  ]
+  ];
 
-  checkUser(email: string, password: string){
-    const currentUser = this.users.find(p => p.email == email)
+  checkUser(email: string, password: string) {
+    const currentUser = this.users.find(p => p.email === email);
 
-    if(currentUser !== null){
-      if(password == currentUser.password){
-        //login successful
-        return currentUser;
-      }
-      else{
-        //password is wrong
-        return {
-          status: 200,
-          message: 'Password is wrong'
-        }
-      }
+    if (!currentUser) {
+      throw new HttpException('User does not exist', HttpStatus.UNAUTHORIZED);
     }
-    else{
+
+    if (password === currentUser.password) {
+      // login successful
       return {
-        status: 401,
-        message: "User does not exist"
-      }
+        status: HttpStatus.OK,
+        message: 'Login successful',
+        user: currentUser,
+      };
+    } else {
+      // password is wrong
+      throw new HttpException('Password is wrong', HttpStatus.FORBIDDEN);
     }
+  }
+
+  createUser(email: string, password: string) {
+    const newUser = {
+      email: email,
+      password: password
+    }
+    this.users = [...this.users, newUser];
+    return {
+      status: HttpStatus.OK,
+      message: 'User created',
+      user: newUser,
+    };
   }
 }
