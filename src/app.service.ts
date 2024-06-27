@@ -1,42 +1,37 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class AppService {
 
   users = [
     {
-      username : 'abc',
-      password: 'iwhfiuw',
+      email : 'randomtest@gmail.com',
+      password: 'testrandom',
     },
     {
-      username:'clown',
-      password: 'buppy',
+      email:'admintest@gmail.com',
+      password: 'testadmin',
     },
     {
-      username: 'random',
-      password: 'random'
+      email: 'servertest@gmail.com',
+      password: 'testserver'
     }
   ]
 
-  checkUser(username: string, password: string){
-    const currentUser = this.users.find(p => p.username == username)
+  checkUser(email: string, password: string){
+    const currentUser = this.users.find(p => p.email = email)
 
     if(currentUser != null){
       if(password == currentUser.password){
         //login successful
-        const reply = {
-          status: 200,
-          message: 'success'
-        }
-        return reply
+        return currentUser;
       }
       else{
-        //passwosrd is wrong
-        const reply = {
+        //password is wrong
+        return {
           status: 401,
           message: 'Password is wrong'
         }
-        return reply
       }
     }
     else{
