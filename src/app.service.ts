@@ -6,7 +6,7 @@ export class AppService {
   users = [
     {
       email : 'randomtest@gmail.com',
-      password: 'testrandom',
+      password: 'testrandom', //
     },
     {
       email:'admintest@gmail.com',
