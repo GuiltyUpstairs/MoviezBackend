@@ -1,6 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Injectable, ConflictException, NotFoundException } from "@nestjs/common";
+import { ConflictException, NotFoundException } from "@nestjs/common";
 import { error } from "console";
+import { User } from './user.entity';
 
 @Injectable()
 export class AppService {

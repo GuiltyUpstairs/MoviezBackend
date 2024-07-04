@@ -1,33 +1,39 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CheckUserDto } from "./dto/check-user.dto";
+import { UserService } from './user.service';
+import { User } from './user.entity';
 
-@Controller()
+@Controller('Users')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly userService: UserService) {}
   
-  @Post()
+  /*@Post()
   checkUser(@Body() checkUserDto: CheckUserDto){
     const{email, password} = checkUserDto;
-    return this.appService.checkUser(email, password);
-  }
+    return this.userService.checkUser(email, password);
+  }*/
   @Get()
   getHello(){
     return "Hello World";
+  }
+  @Get(':email')
+  async findUser(@Param('email') email: string): Promise<User | undefined> {
+    return this.userService.findUserByEmail(email);
   }
   // @Post()
   // authUser(@Body('username') username, @Body('password') password){
   //   return this.appService.checkUser(username, password);
   // }
-  @Post()
+  /*@Post()
   authUser(@Body('username') username, @Body('password') password){
-    return this.appService.checkUser(username, password);
+    return this.userService.checkUser(username, password);
   }
 
 
   @Post('signup')
   registerNewUser(@Body() checkSignupUserDto: CheckUserDto){
     const{email, password} = checkSignupUserDto;
-    return this.appService.registernewuser(email, password);
-  }
+    return this.userService.registernewuser(email, password);
+  }*/
 }
